@@ -87,7 +87,34 @@ Hệ thống giải quyết triệt để các vấn đề nhức nhối của c
       createdAt: '2014-09-24T14:20:00Z'
     }
   ],
-  comments: []
+  comments: [
+    {
+      id: 'cmt_001',
+      postId: 'post_001',
+      author: {
+        id: 'usr_002',
+        fullName: 'David Tran',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
+        role: 'Reviewer'
+      },
+      content: 'Bài viết phân tích rất chuẩn xác! Đặc biệt là các trận chiến trên đảo Jeju của tướng Beru và Sung Jin-Woo quả thực là đỉnh cao đồ họa.',
+      likes: 12,
+      createdAt: '2014-09-23T11:15:00Z'
+    },
+    {
+      id: 'cmt_002',
+      postId: 'post_001',
+      author: {
+        id: 'usr_001',
+        fullName: 'Ruby Nguyen',
+        avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150',
+        role: 'Editor'
+      },
+      content: 'Cảm ơn David! Mình dự kiến sẽ viết thêm bài phân tích các đại tướng bóng tối trong phần tiếp theo của Sprint.',
+      likes: 8,
+      createdAt: '2014-09-23T11:45:00Z'
+    }
+  ]
 };
 
 // ==========================================
@@ -244,6 +271,57 @@ app.post('/api/posts', (req, res) => {
     message: 'Đăng bài viết mới thành công!',
     post: newPost
   });
+});
+
+// ==========================================
+// COMMENTS & DISCUSSION APIs (Issue #4)
+// ==========================================
+
+// Add Comment API (Issue #4: Add comment function)
+app.post('/api/posts/:id/comments', (req, res) => {
+  const postId = req.params.id;
+  const { content, author } = req.body;
+
+  const post = database.posts.find(p => p.id === postId);
+  if (!post) {
+    return res.status(404).json({ success: false, message: 'Bài viết không tồn tại.' });
+  }
+
+  if (!content || !content.trim()) {
+    return res.status(400).json({ success: false, message: 'Nội dung bình luận không được để trống.' });
+  }
+
+  const newComment = {
+    id: 'cmt_' + Date.now(),
+    postId,
+    content: content.trim(),
+    author: author || {
+      id: 'usr_guest',
+      fullName: 'Độc giả Ẩn Danh',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
+      role: 'Member'
+    },
+    likes: 0,
+    createdAt: new Date().toISOString()
+  };
+
+  database.comments.push(newComment);
+
+  return res.status(201).json({
+    success: true,
+    message: 'Thêm bình luận thành công!',
+    comment: newComment
+  });
+});
+
+// Like Comment API
+app.post('/api/comments/:id/like', (req, res) => {
+  const comment = database.comments.find(c => c.id === req.params.id);
+  if (!comment) {
+    return res.status(404).json({ success: false, message: 'Bình luận không tồn tại.' });
+  }
+  comment.likes = (comment.likes || 0) + 1;
+  return res.json({ success: true, likes: comment.likes });
 });
 
 // Root fallback to index.html
