@@ -1,0 +1,23 @@
+{
+  "name": "blog-hethongquanlydoctruyen",
+  "version": "1.0.0",
+  "description": "Hệ thống Blog Quản Lý Đọc Truyện Trực Tuyến - Bài thực hành 3 Quản lý dự án với GitHub & Scrum",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "blog",
+    "story-reader",
+    "scrum",
+    "github",
+    "sprint-1"
+  ],
+  "author": "Nhom 7 - StoryReader Team",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2"
+  }
+}
