@@ -3,24 +3,26 @@
 [![Node.js](https://img.shields.io/badge/Node.js-v24.x-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 [![Express.js](https://img.shields.io/badge/Express.js-4.21.2-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.x-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![GitHub Scrum](https://img.shields.io/badge/Scrum-Sprint%201%20(100%25)-success?style=for-the-badge&logo=github&logoColor=white)](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen)
+[![GitHub Scrum](https://img.shields.io/badge/Scrum-2%20Sprints%20Configured-success?style=for-the-badge&logo=github&logoColor=white)](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen/milestones)
 
 > **Báo cáo Bài Thực Hành Số 3: TRIỂN KHAI DỰ ÁN TRÊN GITHUB**  
 > **Repository:** [https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen.git](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen.git)  
-> **Thời gian thực hiện Sprint 1:** 22/09/2014 – 26/09/2014 (1 tuần)  
-> **Đội ngũ phát triển (Scrum Team):** David, Ruby (Đại diện Nhóm 7)
+> **Thời gian thực hiện toàn bài:** 2 tuần  
+> - **Sprint 1 (Tuần 1: 22/09/2014 – 26/09/2014):** 4 chức năng cốt lõi (Hoàn thành 100%)  
+> - **Sprint 2 (Tuần 2: 29/09/2014 – 03/10/2014):** 4 chức năng nâng cao (Kế hoạch Backlog & Đang triển khai)  
+> **Đội ngũ phát triển (Scrum Team):** David, Ruby (Nhóm 7 - Trần Minh Tuyên)
 
 ---
 
 ## 📑 Mục Lục
 - [1. Giới Thiệu Dự Án](#1-giới-thiệu-dự-án)
-- [2. Quản Lý Dự Án Theo Quy Trình Scrum Trên GitHub](#2-quản-lý-dự-án-theo-quy-trình-scrum-trên-github)
-  - [2.1. Tạo Sprint với GitHub Milestone](#21-tạo-sprint-với-github-milestone)
-  - [2.2. Xây Dựng Hệ Thống Label (Phân Loại Task, Trạng Thái, Thành Viên & Điểm Số)](#22-xây-dựng-hệ-thống-label)
+- [2. Quản Lý Dự Án Theo Quy Trình Scrum Trên GitHub (2 Milestones)](#2-quản-lý-dự-án-theo-quy-trình-scrum-trên-github-2-milestones)
+  - [2.1. Quản Lý Sprint Bằng GitHub Milestones](#21-quản-lý-sprint-bằng-github-milestones)
+  - [2.2. Xây Dựng Hệ Thống Label](#22-xây-dựng-hệ-thống-label)
   - [2.3. Tạo Task Dưới Dạng GitHub Issues](#23-tạo-task-dưới-dạng-github-issues)
   - [2.4. Liên Kết Task với Pull Request ("Solve #id")](#24-liên-kết-task-với-pull-request)
   - [2.5. Theo Dõi Tiến Độ & Tổng Kết Sprint](#25-theo-dõi-tiến-độ--tổng-kết-sprint)
-- [3. Bảng Tổng Kết Sprint 1 Backlog](#3-bảng-tổng-kết-sprint-1-backlog)
+- [3. Bảng Tổng Hợp Issues Theo Cả 2 Sprints](#3-bảng-tổng-hợp-issues-theo-cả-2-sprints)
 - [4. Cấu Trúc Mã Nguồn](#4-cấu-trúc-mã-nguồn)
 - [5. Hướng Dẫn Cài Đặt & Chạy Ứng Dụng](#5-hướng-dẫn-cài-đặt--chạy-ứng-dụng)
 - [6. Danh Sách Tài Khoản Dùng Thử](#6-danh-sách-tài-khoản-dùng-thử)
@@ -31,29 +33,26 @@
 
 **StoryReader Blog** là phân hệ blog và tương tác cộng đồng thuộc hệ thống quản lý & đọc truyện trực tuyến StoryReader. Nền tảng cho phép người dùng theo dõi các bài phân tích, review truyện chữ, truyện tranh nổi tiếng (Solo Leveling, Đấu Phá Thương Khung, Toàn Trí Độc Giả,...), đồng thời thảo luận và tương tác trực tiếp với các tác giả và biên tập viên.
 
-Trong **Sprint 1**, dự án tập trung hoàn thiện 4 chức năng nền tảng:
-1. **Đăng ký (Register):** Hỗ trợ đăng ký qua Email hoặc liên kết tài khoản mạng xã hội (Facebook, LinkedIn).
-2. **Đăng nhập (Login):** Xác thực tài khoản qua email/username, bảo mật phiên, hỗ trợ Remember Me và social login.
-3. **Đăng bài (Create Post):** Soạn thảo bài viết, phân loại thể loại (Manhwa, Tiên hiệp, Review...), đính kèm ảnh bìa và gắn thẻ tags.
-4. **Bình luận (Add Comment):** Cho phép người đọc để lại ý kiến, phản hồi (reply), và tương tác thả tim (like comment).
+Dự án được triển khai trong **2 tuần** với 2 Sprints rõ ràng:
+- **Sprint 1 (Tuần 1):** Tích hợp 4 chức năng cơ bản: Đăng ký (Register), Đăng nhập (Login), Đăng bài (Create Post), Bình luận (Add Comment).
+- **Sprint 2 (Tuần 2):** Mở rộng tính năng: Tìm kiếm & Lọc theo thể loại, Trang cá nhân & Đổi mật khẩu, Yêu thích truyện (Bookmark), và Kiểm duyệt bình luận.
 
 ---
 
-## 2. Quản Lý Dự Án Theo Quy Trình Scrum Trên GitHub
+## 2. Quản Lý Dự Án Theo Quy Trình Scrum Trên GitHub (2 Milestones)
 
-### 2.1. Tạo Sprint với GitHub Milestone
-GitHub Milestone được sử dụng làm đại diện cho **Sprint 1**:
-- **Title:** `Sprint 1`
-- **Due Date:** `September 26, 2014`
-- **Description:**
-  ```text
-  Implement basic functions for blog:
-  - Register.
-  - Login.
-  - Create post.
-  - Add comment.
-  ```
-- **Trạng thái:** Hoàn thành **100%** (4/4 closed issues).
+### 2.1. Quản Lý Sprint Bằng GitHub Milestones
+Kho lưu trữ được cấu hình đầy đủ **2 Milestones** tương ứng với 2 tuần thực hiện:
+
+1. **[Milestone Sprint 1](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen/milestone/1)**
+   - **Deadline:** `September 26, 2014`
+   - **Mục tiêu:** Implement basic functions for blog: Register, Login, Create post, Add comment.
+   - **Kết quả:** **100% complete** (4/4 closed issues).
+
+2. **[Milestone Sprint 2](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen/milestone/2)**
+   - **Deadline:** `October 03, 2014`
+   - **Mục tiêu:** Implement advanced functions for blog (Week 2): Search & filter, User profile, Bookmarks, Comment moderation.
+   - **Kết quả:** **Active Sprint** (4 tasks đang mở với Story Points & phân công cụ thể).
 
 ---
 
@@ -62,10 +61,10 @@ Hệ thống Labels được thiết lập chuẩn theo mô hình Scrum nhằm �
 
 | Nhóm Label | Tên Label | Mã Màu (Hex) | Ý Nghĩa / Mục Đích Sử Dụng |
 | :--- | :--- | :---: | :--- |
-| **Story Points** | `0 point` | `#fef2c0` | Task có độ phức tạp bằng 0 (cấu hình, ghi chú) |
-| | `1 point` | `#fef2c0` | Task rất đơn giản, thực hiện nhanh chóng |
-| | `3 point` | `#fef2c0` | Task trung bình (ví dụ: Đăng nhập, Thêm comment) |
-| | `7 point` | `#fef2c0` | Task lớn, nhiều luồng xử lý (ví dụ: Đăng ký, Đăng bài viết) |
+| **Story Points** | `0 point` | `#fef2c0` | Task cấu hình, tài liệu (0 điểm) |
+| | `1 point` | `#fef2c0` | Task đơn giản, xử lý nhanh chóng |
+| | `3 point` | `#fef2c0` | Task độ phức tạp trung bình |
+| | `7 point` | `#fef2c0` | Task độ phức tạp lớn, nhiều xử lý |
 | **Thành viên phụ trách** | `David` | `#d93f0b` | Task được giao cho thành viên David đảm nhiệm |
 | | `Ruby` | `#d93f0b` | Task được giao cho thành viên Ruby đảm nhiệm |
 | **Vòng đời Task** | `New` | `#fad8c7` | Task mới được tạo, nằm trong Sprint Backlog |
@@ -77,72 +76,29 @@ Hệ thống Labels được thiết lập chuẩn theo mô hình Scrum nhằm �
 ---
 
 ### 2.3. Tạo Task Dưới Dạng GitHub Issues
-Mỗi chức năng trong Sprint được biểu diễn bằng 1 GitHub Issue chi tiết:
+Mỗi chức năng được thể hiện bằng một GitHub Issue rõ ràng với đầy đủ Story Point, Assignee, Label và Milestone:
 
-1. **Issue #1 - Implement register function**
-   - **Mô tả:** `Allow user register by email or via facebook, linkedin.`
-   - **Story Point:** `7 point`
-   - **Phụ trách:** `Ruby`
-   - **Milestone:** `Sprint 1`
-   - **Link:** [#1](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen/issues/1)
+```mermaid
+flowchart TD
+    subgraph W1 ["Sprint 1 (Tuần 1: 22/09 - 26/09/2014) - Hoàn Thành 100%"]
+        I1["#1: Implement register function\n(7 pts | Ruby | Done)"]
+        I2["#2: Implement login function\n(3 pts | David | Done)"]
+        I3["#3: Implement create post function\n(7 pts | Ruby | Done)"]
+        I4["#4: Implement add comment function\n(3 pts | David | Done)"]
+    end
 
-2. **Issue #2 - Implement login function**
-   - **Mô tả:** `Allow user login with email, username and password. Support authentication session and tokens.`
-   - **Story Point:** `3 point`
-   - **Phụ trách:** `David`
-   - **Milestone:** `Sprint 1`
-   - **Link:** [#2](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen/issues/2)
-
-3. **Issue #3 - Implement create post function**
-   - **Mô tả:** `Allow authors and users to create, draft, and publish new blog posts and novel chapters with rich text and images.`
-   - **Story Point:** `7 point`
-   - **Phụ trách:** `Ruby`
-   - **Milestone:** `Sprint 1`
-   - **Link:** [#3](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen/issues/3)
-
-4. **Issue #4 - Implement add comment function**
-   - **Mô tả:** `Allow readers to post comments, leave reviews and join discussions under blog posts and chapters.`
-   - **Story Point:** `3 point`
-   - **Phụ trách:** `David`
-   - **Milestone:** `Sprint 1`
-   - **Link:** [#4](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen/issues/4)
+    subgraph W2 ["Sprint 2 (Tuần 2: 29/09 - 03/10/2014) - Kế Hoạch & Triển Khai"]
+        I9["#9: Search and filter stories\n(3 pts | Ruby | New)"]
+        I10["#10: User profile & change password\n(3 pts | David | New)"]
+        I11["#11: Bookmark and favorite stories\n(7 pts | Ruby | In progress)"]
+        I12["#12: Comment moderation & reporting\n(3 pts | David | New)"]
+    end
+```
 
 ---
 
 ### 2.4. Liên Kết Task với Pull Request ("Solve #id")
 Áp dụng cơ chế tham chiếu chéo (cross-reference) của GitHub để tự động liên kết Pull Request với Task thông qua cú pháp `Solve #id` trong phần mô tả của PR:
-
-```mermaid
-gitGraph
-   commit id: "Initial commit"
-   branch Feature/implement_register_func
-   checkout Feature/implement_register_func
-   commit id: "Register with email"
-   commit id: "Register with fb, linkedin"
-   checkout main
-   merge Feature/implement_register_func id: "PR #5 (Solve #1)"
-   
-   branch Feature/implement_login_func
-   checkout Feature/implement_login_func
-   commit id: "Implement login authentication API"
-   commit id: "Add login page UI"
-   checkout main
-   merge Feature/implement_login_func id: "PR #6 (Solve #2)"
-
-   branch Feature/implement_create_post_func
-   checkout Feature/implement_create_post_func
-   commit id: "Implement create post API"
-   commit id: "Add rich create post editor"
-   checkout main
-   merge Feature/implement_create_post_func id: "PR #7 (Solve #3)"
-
-   branch Feature/implement_add_comment_func
-   checkout Feature/implement_add_comment_func
-   commit id: "Implement comment API"
-   commit id: "Add comment section UI"
-   checkout main
-   merge Feature/implement_add_comment_func id: "PR #8 (Solve #4)"
-```
 
 - **PR #5:** `Feature/implement register func` -> Mô tả: `Solve #1` -> [Xem PR #5](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen/pull/5)
 - **PR #6:** `Feature/implement login func` -> Mô tả: `Solve #2` -> [Xem PR #6](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen/pull/6)
@@ -151,22 +107,18 @@ gitGraph
 
 ---
 
-### 2.5. Theo Dõi Tiến Độ & Tổng Kết Sprint
-- Trong suốt Sprint, trạng thái task được luân chuyển: `New` -> `In progress` -> `Done`.
-- Lọc tiến độ linh hoạt trên GitHub thông qua bộ lọc Labels (`is:issue milestone:"Sprint 1" label:David` hoặc `label:Ruby`).
-- Cuối Sprint, Scrum Master tiến hành nghiệm thu, đóng toàn bộ các task và đánh dấu hoàn thành 100% mục tiêu Sprint 1.
+## 3. Bảng Tổng Hợp Issues Theo Cả 2 Sprints
 
----
-
-## 3. Bảng Tổng Kết Sprint 1 Backlog
-
-| Task ID | Tiêu Đề Nhiệm Vụ | Người Phụ Trách | Point | Branch Thực Hiện | Pull Request | Trạng Thái |
-| :---: | :--- | :---: | :---: | :--- | :---: | :---: |
-| **#1** | Implement register function | **Ruby** | 7 | `Feature/implement_register_func` | [PR #5](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen/pull/5) | `Done` (Closed) |
-| **#2** | Implement login function | **David** | 3 | `Feature/implement_login_func` | [PR #6](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen/pull/6) | `Done` (Closed) |
-| **#3** | Implement create post function | **Ruby** | 7 | `Feature/implement_create_post_func` | [PR #7](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen/pull/7) | `Done` (Closed) |
-| **#4** | Implement add comment function | **David** | 3 | `Feature/implement_add_comment_func` | [PR #8](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen/pull/8) | `Done` (Closed) |
-| **TỔNG** | **4 Chức Năng Cốt Lõi** | **David & Ruby** | **20 Points** | **4 Feature Branches** | **4 PRs Merged** | **100% Hoàn Thành** |
+| Sprint | Mã Issue | Tên Nhiệm Vụ | Người Phụ Trách | Point | Trạng Thái | Pull Request Liên Kết |
+| :---: | :---: | :--- | :---: | :---: | :---: | :---: |
+| **Sprint 1** | **#1** | Implement register function | **Ruby** | 7 | `Done` (Closed) | [PR #5](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen/pull/5) (`Solve #1`) |
+| **Sprint 1** | **#2** | Implement login function | **David** | 3 | `Done` (Closed) | [PR #6](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen/pull/6) (`Solve #2`) |
+| **Sprint 1** | **#3** | Implement create post function | **Ruby** | 7 | `Done` (Closed) | [PR #7](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen/pull/7) (`Solve #3`) |
+| **Sprint 1** | **#4** | Implement add comment function | **David** | 3 | `Done` (Closed) | [PR #8](https://github.com/tuyenminhtran/blog-hethongquanlydoctruyen/pull/8) (`Solve #4`) |
+| **Sprint 2** | **#9** | Implement search and filter stories by category | **Ruby** | 3 | `New` (Open) | Tuần 2 |
+| **Sprint 2** | **#10** | Implement user profile and change password | **David** | 3 | `New` (Open) | Tuần 2 |
+| **Sprint 2** | **#11** | Implement bookmark and favorite stories | **Ruby** | 7 | `In progress` (Open) | Tuần 2 |
+| **Sprint 2** | **#12** | Implement comment moderation and reporting | **David** | 3 | `New` (Open) | Tuần 2 |
 
 ---
 
@@ -176,7 +128,7 @@ gitGraph
 blog-hethongquanlydoctruyen/
 ├── public/                     # Giao diện người dùng (Client Web Application)
 │   ├── css/
-│   │   └── style.css           # Styling giao diện tùy biến (Dark mode / Glow / Cards)
+│   │   └── style.css           # Styling giao diện tùy biến (Dark mode / Cards / Glassmorphism)
 │   ├── js/
 │   │   └── app.js              # State quản lý Auth, Notifications, API Client
 │   ├── index.html              # Trang chủ: Feed bài viết, bộ lọc thể loại & tìm kiếm
@@ -218,8 +170,6 @@ Sau khi khởi chạy thành công, truy cập trình duyệt tại địa chỉ
 ---
 
 ## 6. Danh Sách Tài Khoản Dùng Thử
-
-Hệ thống cung cấp sẵn các tài khoản mẫu phục vụ cho việc chấm điểm và kiểm thử:
 
 | Tài Khoản | Email | Mật Khẩu | Vai Trò | Chức Năng Đảm Nhận |
 | :--- | :--- | :---: | :---: | :--- |
