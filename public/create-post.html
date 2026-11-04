@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viết Bài Mới | StoryReader Blog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="min-h-screen bg-slate-950 flex flex-col justify-between">
+  <!-- Navbar -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2.5">
+        <span class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
+          <i class="fa-solid fa-book-open"></i>
+        </span>
+        <div>
+          <span class="font-bold text-lg text-white tracking-tight">StoryReader <span class="text-indigo-400">Blog</span></span>
+          <span class="block text-[10px] text-slate-400 uppercase tracking-widest -mt-1">Hệ Thống Quản Lý Đọc Truyện</span>
+        </div>
+      </a>
+      <div id="authNav"></div>
+    </div>
+  </header>
+
+  <!-- Create Post Main -->
+  <main class="max-w-4xl mx-auto px-4 py-10 flex-grow w-full">
+    <div class="glass-card rounded-2xl p-6 md:p-8 shadow-2xl relative">
+      <div class="flex items-center justify-between pb-6 border-b border-slate-800">
+        <div>
+          <h1 class="text-2xl font-bold text-white flex items-center gap-2.5">
+            <span class="p-2 rounded-xl bg-indigo-600/20 text-indigo-400"><i class="fa-solid fa-feather-pointed"></i></span>
+            Soạn Thảo Bài Viết & Đăng Truyện Mới
+          </h1>
+          <p class="text-xs text-slate-400 mt-1">Sprint 1 Feature: Đăng bài review, chia sẻ cốt truyện và thảo luận</p>
+        </div>
+        <a href="/" class="text-xs text-slate-400 hover:text-white transition flex items-center gap-1">
+          <i class="fa-solid fa-arrow-left"></i> Quay lại
+        </a>
+      </div>
+
+      <form id="createPostForm" class="space-y-6 mt-6">
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2" for="title">Tiêu Đề Bài Viết / Tên Truyện *</label>
+          <input type="text" id="title" required class="glass-input w-full px-4 py-3 rounded-xl text-base font-semibold" placeholder="VD: Phân tích kết cục của Toàn Trí Độc Giả (Omniscient Reader)...">
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2" for="category">Thể Loại *</label>
+            <select id="category" class="glass-input w-full px-4 py-2.5 rounded-xl text-sm bg-slate-900">
+              <option value="Manhwa">Manhwa / Truyện Tranh Hàn Quốc</option>
+              <option value="Manga">Manga / Truyện Tranh Nhật Bản</option>
+              <option value="Tiên Hiệp">Tiên Hiệp / Kiếm Hiệp</option>
+              <option value="Huyền Huyễn">Huyền Huyễn / Kỳ Ảo</option>
+              <option value="Review Truyện">Review & Đánh Giá Truyện</option>
+              <option value="Công nghệ">Công Nghệ & Tin Tức StoryReader</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2" for="tags">Thẻ Tags (phân tách bởi dấu phẩy)</label>
+            <input type="text" id="tags" class="glass-input w-full px-4 py-2.5 rounded-xl text-sm" placeholder="Review, Độc Giả, Hấp Dẫn, Solo">
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2" for="cover">Link Ảnh Bìa (Cover Image URL)</label>
+          <input type="url" id="cover" class="glass-input w-full px-4 py-2.5 rounded-xl text-sm" placeholder="https://images.unsplash.com/... (Để trống nếu dùng ảnh mặc định)">
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2" for="summary">Tóm Tắt Ngắn</label>
+          <textarea id="summary" rows="2" class="glass-input w-full px-4 py-2.5 rounded-xl text-sm" placeholder="Tóm tắt nội dung bài viết trong 1-2 câu ngắn gọn..."></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2" for="content">Nội Dung Chi Tiết *</label>
+          <textarea id="content" rows="10" required class="glass-input w-full px-4 py-3 rounded-xl text-sm leading-relaxed" placeholder="Nhập nội dung bài đánh giá, chương truyện hoặc cảm nhận của bạn..."></textarea>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
+          <button type="button" onclick="window.location.href='/'" class="px-5 py-2.5 rounded-xl text-sm text-slate-400 hover:text-white bg-slate-800 transition">Hủy bỏ</button>
+          <button type="submit" id="btnSubmitPost" class="px-6 py-2.5 rounded-xl text-sm font-semibold text-white bg-indigo-600 hover:bg-indigo-500 transition shadow-lg shadow-indigo-600/30 flex items-center gap-2">
+            <i class="fa-solid fa-paper-plane"></i> Đăng Bài Viết Ngay
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-900 py-6 text-center text-xs text-slate-500">
+    <p>© 2014 - 2026 StoryReader Blog. Bài thực hành số 3 - Quản lý dự án với GitHub.</p>
+  </footer>
+
+  <script src="/js/app.js"></script>
+  <script>
+    document.getElementById('createPostForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const user = Auth.getUser();
+      if (!user) {
+        showToast('Vui lòng đăng nhập trước khi đăng bài!', 'error');
+        setTimeout(() => { window.location.href = '/login.html'; }, 1500);
+        return;
+      }
+
+      const title = document.getElementById('title').value.trim();
+      const category = document.getElementById('category').value;
+      const tags = document.getElementById('tags').value.trim();
+      const cover = document.getElementById('cover').value.trim();
+      const summary = document.getElementById('summary').value.trim();
+      const content = document.getElementById('content').value.trim();
+      const btn = document.getElementById('btnSubmitPost');
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang đăng bài...';
+
+      try {
+        const res = await fetch(`${API_BASE}/posts`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title,
+            category,
+            tags,
+            cover: cover || undefined,
+            summary,
+            content,
+            author: {
+              id: user.id,
+              fullName: user.fullName || user.username,
+              avatar: user.avatar,
+              role: user.role
+            }
+          })
+        });
+
+        const data = await res.json();
+        if (res.ok && data.success) {
+          showToast('Bài viết đã được đăng thành công!', 'success');
+          setTimeout(() => { window.location.href = '/'; }, 1200);
+        } else {
+          showToast(data.message || 'Lỗi khi đăng bài viết.', 'error');
+        }
+      } catch (err) {
+        showToast('Lỗi kết nối máy chủ!', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Đăng Bài Viết Ngay';
+      }
+    });
+  </script>
+</body>
+</html>

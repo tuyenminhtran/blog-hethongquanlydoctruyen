@@ -26,8 +26,7 @@
       <nav class="hidden md:flex items-center gap-6 text-sm text-slate-300">
         <a href="/" class="text-indigo-400 font-semibold hover:text-white transition">Trang Chủ</a>
         <a href="#featured" class="hover:text-white transition">Truyện Nổi Bật</a>
-        <a href="#reviews" class="hover:text-white transition">Đánh Giá & Review</a>
-        <a href="#sprint-info" class="hover:text-white transition">Sprint 1 Demo</a>
+        <a href="/create-post.html" class="hover:text-white transition">Đăng Bài Mới</a>
       </nav>
 
       <!-- Auth State Navigation -->
@@ -36,12 +35,12 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="gradient-header py-16 border-b border-slate-800 relative overflow-hidden">
+  <section class="gradient-header py-14 border-b border-slate-800 relative overflow-hidden">
     <div class="absolute inset-0 bg-[radial-gradient(#312e81_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
     <div class="max-w-6xl mx-auto px-4 relative z-10 text-center">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs font-semibold mb-4">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        Sprint 1 Active: Đăng Ký, Đăng Nhập, Post Bài, Thêm Comment
+        Sprint 1: Đăng Ký, Đăng Nhập, Post Bài, Thêm Comment (Scrum / GitHub)
       </div>
       <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight">
         Khám Phá Thế Giới Truyện <br>
@@ -51,33 +50,42 @@
         Nền tảng chia sẻ đánh giá truyện chữ, truyện tranh, cập nhật chương mới và thảo luận sôi nổi cùng hàng ngàn độc giả.
       </p>
 
-      <div class="mt-8 flex flex-wrap justify-center gap-4">
-        <a href="/register.html" class="px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition shadow-lg shadow-indigo-600/30 flex items-center gap-2">
-          <i class="fa-solid fa-user-plus"></i> Đăng Ký Trải Nghiệm
+      <div class="mt-8 flex flex-wrap justify-center gap-3">
+        <a href="/create-post.html" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition shadow-lg shadow-indigo-600/30 flex items-center gap-2">
+          <i class="fa-solid fa-feather"></i> Viết Bài / Đăng Truyện Mới
         </a>
-        <a href="/login.html" class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-sm transition flex items-center gap-2">
-          <i class="fa-solid fa-right-to-bracket"></i> Đăng Nhập
+        <a href="/register.html" class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-sm transition flex items-center gap-2">
+          <i class="fa-solid fa-user-plus"></i> Đăng Ký Thành Viên
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Main Content Feed -->
-  <main class="max-w-6xl mx-auto px-4 py-12 flex-grow">
-    <div class="flex items-center justify-between mb-8">
-      <div>
-        <h2 class="text-xl font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-fire text-amber-500"></i> Bài Viết & Đánh Giá Mới Nhất
-        </h2>
-        <p class="text-xs text-slate-400 mt-1">Cập nhật liên tục các bài phân tích, review truyện hay</p>
+  <!-- Filter & Categories Bar -->
+  <section class="max-w-6xl mx-auto px-4 pt-10">
+    <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
+      <div class="flex items-center gap-2 overflow-x-auto py-1">
+        <button onclick="filterCategory('All')" class="cat-filter active px-3.5 py-1.5 rounded-full text-xs font-medium bg-indigo-600 text-white transition">Tất Cả</button>
+        <button onclick="filterCategory('Manhwa')" class="cat-filter px-3.5 py-1.5 rounded-full text-xs font-medium bg-slate-800 text-slate-300 hover:text-white transition">Manhwa</button>
+        <button onclick="filterCategory('Tiên Hiệp')" class="cat-filter px-3.5 py-1.5 rounded-full text-xs font-medium bg-slate-800 text-slate-300 hover:text-white transition">Tiên Hiệp</button>
+        <button onclick="filterCategory('Review Truyện')" class="cat-filter px-3.5 py-1.5 rounded-full text-xs font-medium bg-slate-800 text-slate-300 hover:text-white transition">Review Truyện</button>
+        <button onclick="filterCategory('Công nghệ')" class="cat-filter px-3.5 py-1.5 rounded-full text-xs font-medium bg-slate-800 text-slate-300 hover:text-white transition">Hệ Thống</button>
       </div>
-      <div id="createPostBtnContainer"></div>
-    </div>
 
+      <div class="relative w-full md:w-64">
+        <input type="text" id="searchInput" placeholder="Tìm kiếm bài viết, truyện..." oninput="searchPosts()" class="glass-input w-full pl-9 pr-3 py-1.5 rounded-xl text-xs">
+        <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-500 text-xs">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Feed -->
+  <main class="max-w-6xl mx-auto px-4 py-8 flex-grow">
     <!-- Blog Posts Container -->
     <div id="postsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Loading skeleton or dynamically loaded posts -->
-      <div class="glass-card rounded-2xl p-6 text-center text-slate-400 text-sm">
+      <div class="glass-card rounded-2xl p-6 text-center text-slate-400 text-sm col-span-3">
         <i class="fa-solid fa-spinner fa-spin text-indigo-400 text-xl mb-2"></i>
         <p>Đang tải danh sách bài viết...</p>
       </div>
@@ -94,5 +102,112 @@
   </footer>
 
   <script src="/js/app.js"></script>
+  <script>
+    let allPosts = [];
+    let currentCategory = 'All';
+
+    async function loadPosts() {
+      try {
+        const res = await fetch(`${API_BASE}/posts`);
+        const data = await res.json();
+        if (data.success) {
+          allPosts = data.posts;
+          renderPosts(allPosts);
+        }
+      } catch (err) {
+        document.getElementById('postsList').innerHTML = `
+          <div class="glass-card rounded-2xl p-8 text-center text-slate-400 text-sm col-span-3">
+            <i class="fa-solid fa-triangle-exclamation text-amber-500 text-2xl mb-2"></i>
+            <p>Không thể tải bài viết từ server. Vui lòng thử lại sau.</p>
+          </div>
+        `;
+      }
+    }
+
+    function renderPosts(posts) {
+      const container = document.getElementById('postsList');
+      if (!posts || posts.length === 0) {
+        container.innerHTML = `
+          <div class="glass-card rounded-2xl p-12 text-center text-slate-400 text-sm col-span-3">
+            <i class="fa-solid fa-feather text-indigo-400 text-3xl mb-3"></i>
+            <p class="text-base font-semibold text-slate-300">Chưa có bài viết nào trong chuyên mục này.</p>
+            <p class="text-xs text-slate-500 mt-1">Hãy là người đầu tiên chia sẻ cảm nhận hoặc đăng tải chương truyện mới!</p>
+            <a href="/create-post.html" class="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold">
+              <i class="fa-solid fa-plus"></i> Đăng Bài Viết
+            </a>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = posts.map(post => `
+        <article class="glass-card rounded-2xl overflow-hidden shadow-lg hover:border-indigo-500/50 transition duration-300 flex flex-col group">
+          <div class="relative h-44 overflow-hidden bg-slate-800">
+            <img src="${post.cover}" alt="${post.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800'">
+            <span class="absolute top-3 left-3 px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-indigo-600/90 text-white backdrop-blur shadow">
+              ${post.category}
+            </span>
+          </div>
+
+          <div class="p-5 flex-grow flex flex-col justify-between">
+            <div>
+              <div class="flex items-center gap-2 text-[11px] text-slate-400 mb-2">
+                <span><i class="fa-regular fa-calendar"></i> ${new Date(post.createdAt).toLocaleDateString('vi-VN')}</span>
+                <span>•</span>
+                <span><i class="fa-regular fa-eye"></i> ${post.views || 1} lượt xem</span>
+                <span>•</span>
+                <span><i class="fa-regular fa-comment"></i> ${post.commentCount || 0}</span>
+              </div>
+              <h3 class="text-base font-bold text-white group-hover:text-indigo-400 transition line-clamp-2">
+                <a href="/post-detail.html?id=${post.id}">${post.title}</a>
+              </h3>
+              <p class="text-xs text-slate-400 mt-2 line-clamp-3 leading-relaxed">
+                ${post.summary}
+              </p>
+            </div>
+
+            <div class="pt-4 mt-4 border-t border-slate-800/80 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <img src="${post.author?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'}" class="w-6 h-6 rounded-full object-cover border border-slate-700" alt="avatar">
+                <span class="text-xs text-slate-300 font-medium">${post.author?.fullName || 'Tác giả'}</span>
+              </div>
+              <a href="/post-detail.html?id=${post.id}" class="text-xs font-semibold text-indigo-400 hover:text-indigo-300 flex items-center gap-1">
+                Chi tiết <i class="fa-solid fa-angle-right text-[10px]"></i>
+              </a>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function filterCategory(cat) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-filter').forEach(btn => {
+        if (btn.innerText === cat || (cat === 'All' && btn.innerText === 'Tất Cả')) {
+          btn.className = 'cat-filter active px-3.5 py-1.5 rounded-full text-xs font-medium bg-indigo-600 text-white transition';
+        } else {
+          btn.className = 'cat-filter px-3.5 py-1.5 rounded-full text-xs font-medium bg-slate-800 text-slate-300 hover:text-white transition';
+        }
+      });
+
+      if (cat === 'All') {
+        renderPosts(allPosts);
+      } else {
+        const filtered = allPosts.filter(p => p.category.toLowerCase() === cat.toLowerCase());
+        renderPosts(filtered);
+      }
+    }
+
+    function searchPosts() {
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const filtered = allPosts.filter(p => 
+        (currentCategory === 'All' || p.category.toLowerCase() === currentCategory.toLowerCase()) &&
+        (p.title.toLowerCase().includes(q) || p.summary.toLowerCase().includes(q))
+      );
+      renderPosts(filtered);
+    }
+
+    document.addEventListener('DOMContentLoaded', loadPosts);
+  </script>
 </body>
 </html>
