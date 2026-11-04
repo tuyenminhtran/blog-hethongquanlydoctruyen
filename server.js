@@ -38,7 +38,55 @@ const database = {
       createdAt: '2014-09-22T08:30:00Z'
     }
   ],
-  posts: [],
+  posts: [
+    {
+      id: 'post_001',
+      title: 'Đánh giá siêu phẩm Solo Leveling: Tôi Thăng Cấp Một Mình',
+      summary: 'Phân tích chi tiết hành trình từ thợ săn hạng E yếu ớt trở thành Hoàng đế Bóng tối bất khả chiến bại của Sung Jin-Woo.',
+      content: `Solo Leveling (Na Honjamanman Rebeur-eop) là một trong những webtoon hành động đình đám nhất châu Á trong thập kỷ qua. 
+Tác phẩm lấy bối cảnh khi các cánh cổng kết nối thế giới thực với hầm ngục chứa quái vật xuất hiện. Nhân vật chính Sung Jin-Woo thức tỉnh hệ thống độc nhất vô nhị chỉ riêng mình anh có thể nhìn thấy và tăng chỉ số.
+
+Điểm sáng của tác phẩm:
+1. Đồ họa đỉnh cao do Redice Studio thực hiện với nét vẽ sắc nét, phân cảnh chiến đấu mãn nhãn.
+2. Tiết tấu dồn dập, logic tăng cấp rõ ràng, tạo sự lôi cuốn mãnh liệt.
+3. Đội quân bóng tối (Shadow Soldiers) trung thành với các tướng lĩnh cá tính như Igris, Beru.
+
+Đánh giá tổng quan: 9.5/10 - Bộ truyện tranh nhất định phải đọc của mọi tín đồ Manhwa!`,
+      category: 'Manhwa',
+      tags: ['Solo Leveling', 'Action', 'Hầm Ngục', 'Review'],
+      cover: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800',
+      author: {
+        id: 'usr_001',
+        fullName: 'Ruby Nguyen',
+        avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150',
+        role: 'Editor'
+      },
+      views: 1240,
+      createdAt: '2014-09-23T10:00:00Z'
+    },
+    {
+      id: 'post_002',
+      title: 'Giới thiệu Hệ Thống Quản Lý Đọc Truyện StoryReader',
+      summary: 'Tổng quan kiến trúc nền tảng đọc truyện trực tuyến: Bảo vệ bản quyền chữ số SkiaSharp, tích hợp thanh toán gói VIP và độc quyền đọc thử.',
+      content: `Hệ thống StoryReader là dự án phần mềm chuyên nghiệp phục vụ nhu cầu đọc truyện chữ và truyện tranh đa nền tảng.
+Hệ thống giải quyết triệt để các vấn đề nhức nhối của các trang đọc truyện truyền thống:
+- Cơ chế bảo vệ bản quyền Text-to-Image Watermarking SkiaSharp chống sao chép tự động (crawler/scraping bot).
+- Phân quyền đọc linh hoạt: Đọc miễn phí, Gói tháng không giới hạn (VIP Subscription), và Mua lẻ truyện (Pay-per-story).
+- Tích hợp cổng thanh toán trực tuyến bảo mật, lưu vết giao dịch minh bạch.
+- Cộng đồng thảo luận, bình luận và đánh giá chương truyện tương tác cao.`,
+      category: 'Công nghệ',
+      tags: ['StoryReader', 'Architecture', '.NET 8', 'React'],
+      cover: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=800',
+      author: {
+        id: 'usr_002',
+        fullName: 'David Tran',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
+        role: 'Reviewer'
+      },
+      views: 890,
+      createdAt: '2014-09-24T14:20:00Z'
+    }
+  ],
   comments: []
 };
 
@@ -50,7 +98,6 @@ const database = {
 app.post('/api/auth/register', (req, res) => {
   const { fullName, email, password, provider, providerId } = req.body;
 
-  // Validation
   if (!email) {
     return res.status(400).json({ success: false, message: 'Email là bắt buộc.' });
   }
@@ -71,7 +118,7 @@ app.post('/api/auth/register', (req, res) => {
     fullName: fullName || email.split('@')[0],
     email: email.toLowerCase(),
     password: password || 'oauth_social_login',
-    provider: regProvider, // 'email' | 'facebook' | 'linkedin'
+    provider: regProvider,
     providerId: providerId || null,
     avatar: regProvider === 'facebook' 
       ? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150' 
@@ -84,7 +131,6 @@ app.post('/api/auth/register', (req, res) => {
 
   database.users.push(newUser);
 
-  // Return user info (excluding password)
   const { password: _, ...userSafe } = newUser;
   return res.status(201).json({
     success: true,
@@ -121,6 +167,82 @@ app.post('/api/auth/login', (req, res) => {
     user: userSafe,
     token,
     rememberMe: !!rememberMe
+  });
+});
+
+// ==========================================
+// POST / BLOG MANAGEMENT APIs (Issue #3)
+// ==========================================
+
+// GET all posts
+app.get('/api/posts', (req, res) => {
+  const { category, search } = req.query;
+  let results = [...database.posts];
+
+  if (category && category !== 'All') {
+    results = results.filter(p => p.category.toLowerCase() === category.toLowerCase());
+  }
+
+  if (search) {
+    const s = search.toLowerCase();
+    results = results.filter(p => 
+      p.title.toLowerCase().includes(s) || 
+      p.summary.toLowerCase().includes(s)
+    );
+  }
+
+  // Count comments for each post
+  const postsWithCommentCount = results.map(post => {
+    const count = database.comments.filter(c => c.postId === post.id).length;
+    return { ...post, commentCount: count };
+  });
+
+  return res.json({ success: true, posts: postsWithCommentCount });
+});
+
+// GET post detail
+app.get('/api/posts/:id', (req, res) => {
+  const post = database.posts.find(p => p.id === req.params.id);
+  if (!post) {
+    return res.status(404).json({ success: false, message: 'Không tìm thấy bài viết.' });
+  }
+  post.views = (post.views || 0) + 1;
+  const postComments = database.comments.filter(c => c.postId === post.id);
+  return res.json({ success: true, post, comments: postComments });
+});
+
+// CREATE post API (Issue #3: Create post function)
+app.post('/api/posts', (req, res) => {
+  const { title, summary, content, category, tags, cover, author } = req.body;
+
+  if (!title || !content) {
+    return res.status(400).json({ success: false, message: 'Tiêu đề và nội dung bài viết là bắt buộc.' });
+  }
+
+  const newPost = {
+    id: 'post_' + Date.now(),
+    title: title.trim(),
+    summary: summary ? summary.trim() : title.trim().substring(0, 120) + '...',
+    content: content.trim(),
+    category: category || 'Review Truyện',
+    tags: Array.isArray(tags) ? tags : (tags ? tags.split(',').map(t => t.trim()) : ['StoryReader']),
+    cover: cover || 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800',
+    author: author || {
+      id: 'usr_guest',
+      fullName: 'Tác giả Ẩn Danh',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
+      role: 'Member'
+    },
+    views: 1,
+    createdAt: new Date().toISOString()
+  };
+
+  database.posts.unshift(newPost);
+
+  return res.status(201).json({
+    success: true,
+    message: 'Đăng bài viết mới thành công!',
+    post: newPost
   });
 });
 
