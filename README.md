@@ -1,4 +1,4 @@
-# 📚 StoryReader Blog - Hệ Thống Quản Lý & Đọc Truyện Trực Tuyến
+#  StoryReader Blog - Hệ Thống Quản Lý & Đọc Truyện Trực Tuyến
 
 [![Node.js](https://img.shields.io/badge/Node.js-v24.x-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 [![Express.js](https://img.shields.io/badge/Express.js-4.21.2-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
@@ -14,7 +14,7 @@
 
 ---
 
-## 📑 Mục Lục
+##  Mục Lục
 - [1. Giới Thiệu Dự Án](#1-giới-thiệu-dự-án)
 - [2. Quản Lý Dự Án Theo Quy Trình Scrum Trên GitHub (2 Milestones)](#2-quản-lý-dự-án-theo-quy-trình-scrum-trên-github-2-milestones)
   - [2.1. Quản Lý Sprint Bằng GitHub Milestones](#21-quản-lý-sprint-bằng-github-milestones)
@@ -165,7 +165,7 @@ npm start
 ```
 
 Sau khi khởi chạy thành công, truy cập trình duyệt tại địa chỉ:  
-👉 **`http://localhost:3000`**
+ **`http://localhost:3000`**
 
 ---
 
