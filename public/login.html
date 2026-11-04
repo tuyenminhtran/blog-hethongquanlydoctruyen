@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đăng Nhập Tài Khoản | StoryReader Blog</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="min-h-screen bg-slate-950 flex flex-col justify-between">
+  <!-- Navbar -->
+  <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2.5">
+        <span class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
+          <i class="fa-solid fa-book-open"></i>
+        </span>
+        <div>
+          <span class="font-bold text-lg text-white tracking-tight">StoryReader <span class="text-indigo-400">Blog</span></span>
+          <span class="block text-[10px] text-slate-400 uppercase tracking-widest -mt-1">Hệ Thống Quản Lý Đọc Truyện</span>
+        </div>
+      </a>
+      <div id="authNav"></div>
+    </div>
+  </header>
+
+  <!-- Login Main -->
+  <main class="flex-grow flex items-center justify-center py-12 px-4">
+    <div class="w-full max-w-md glass-card rounded-2xl p-8 shadow-2xl relative overflow-hidden">
+      <div class="absolute -top-24 -right-24 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-violet-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="text-center mb-6">
+        <span class="inline-block p-3 rounded-full bg-indigo-600/20 text-indigo-400 mb-3 text-lg">
+          <i class="fa-solid fa-right-to-bracket"></i>
+        </span>
+        <h1 class="text-2xl font-bold text-white">Đăng nhập tài khoản</h1>
+        <p class="text-sm text-slate-400 mt-1">Chào mừng bạn quay lại với StoryReader Blog</p>
+      </div>
+
+      <!-- Quick Demo Accounts Badge -->
+      <div class="bg-indigo-950/40 border border-indigo-500/30 rounded-xl p-3 mb-6 text-xs text-indigo-300">
+        <p class="font-semibold mb-1 flex items-center gap-1.5"><i class="fa-solid fa-lightbulb"></i> Tài khoản mẫu dùng thử:</p>
+        <div class="flex justify-between items-center text-[11px] text-slate-300">
+          <span><strong>Ruby:</strong> ruby@example.com / password123</span>
+          <button type="button" onclick="fillDemo('ruby@example.com', 'password123')" class="text-indigo-400 hover:underline">Điền nhanh</button>
+        </div>
+        <div class="flex justify-between items-center text-[11px] text-slate-300 mt-1">
+          <span><strong>David:</strong> david@example.com / password123</span>
+          <button type="button" onclick="fillDemo('david@example.com', 'password123')" class="text-indigo-400 hover:underline">Điền nhanh</button>
+        </div>
+      </div>
+
+      <!-- Social Login Buttons -->
+      <div class="grid grid-cols-2 gap-3 mb-6">
+        <button id="btnFbLogin" type="button" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-[#1877F2]/10 hover:bg-[#1877F2]/20 text-[#1877F2] border border-[#1877F2]/30 text-xs font-semibold transition">
+          <i class="fa-brands fa-facebook text-base"></i> Facebook
+        </button>
+        <button id="btnLiLogin" type="button" class="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-[#0A66C2]/10 hover:bg-[#0A66C2]/20 text-[#0A66C2] border border-[#0A66C2]/30 text-xs font-semibold transition">
+          <i class="fa-brands fa-linkedin text-base"></i> LinkedIn
+        </button>
+      </div>
+
+      <div class="relative flex py-2 items-center mb-6">
+        <div class="flex-grow border-t border-slate-800"></div>
+        <span class="flex-shrink mx-3 text-xs text-slate-500 font-medium uppercase">Hoặc đăng nhập tài khoản</span>
+        <div class="flex-grow border-t border-slate-800"></div>
+      </div>
+
+      <!-- Login Form (Issue #2: Allow user login with email, username and password) -->
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-slate-300 mb-1.5" for="identifier">Email hoặc Tên đăng nhập</label>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500 text-xs">
+              <i class="fa-solid fa-user"></i>
+            </span>
+            <input type="text" id="identifier" required class="glass-input w-full pl-9 pr-3.5 py-2.5 rounded-xl text-sm" placeholder="ruby@example.com hoặc ruby_dev">
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1.5">
+            <label class="block text-xs font-medium text-slate-300" for="password">Mật khẩu</label>
+            <a href="#" class="text-xs text-indigo-400 hover:text-indigo-300">Quên mật khẩu?</a>
+          </div>
+          <div class="relative">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-500 text-xs">
+              <i class="fa-solid fa-lock"></i>
+            </span>
+            <input type="password" id="password" required class="glass-input w-full pl-9 pr-3.5 py-2.5 rounded-xl text-sm" placeholder="••••••••">
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between text-xs text-slate-400">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" id="rememberMe" checked class="rounded border-slate-700 bg-slate-900 text-indigo-600 focus:ring-0">
+            <span>Ghi nhớ đăng nhập</span>
+          </label>
+        </div>
+
+        <button type="submit" id="btnSubmit" class="w-full py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-sm transition shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2">
+          <i class="fa-solid fa-right-to-bracket"></i> Đăng Nhập
+        </button>
+      </form>
+
+      <p class="text-center text-xs text-slate-400 mt-6">
+        Chưa có tài khoản? 
+        <a href="/register.html" class="text-indigo-400 hover:text-indigo-300 font-semibold ml-1">Đăng ký ngay</a>
+      </p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-900 py-6 text-center text-xs text-slate-500">
+    <p>© 2014 - 2026 StoryReader Blog. Bài thực hành số 3 - Quản lý dự án với GitHub.</p>
+  </footer>
+
+  <script src="/js/app.js"></script>
+  <script>
+    function fillDemo(email, pass) {
+      document.getElementById('identifier').value = email;
+      document.getElementById('password').value = pass;
+    }
+
+    // Handle Form Submit
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const identifier = document.getElementById('identifier').value.trim();
+      const password = document.getElementById('password').value;
+      const rememberMe = document.getElementById('rememberMe').checked;
+      const btn = document.getElementById('btnSubmit');
+
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang xác thực...';
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/login`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ identifier, password, rememberMe })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          Auth.setUser(data.user, data.token);
+          showToast(data.message || 'Đăng nhập thành công!', 'success');
+          setTimeout(() => { window.location.href = '/'; }, 1000);
+        } else {
+          showToast(data.message || 'Sai thông tin đăng nhập!', 'error');
+        }
+      } catch (err) {
+        showToast('Lỗi kết nối máy chủ!', 'error');
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fa-solid fa-right-to-bracket"></i> Đăng Nhập';
+      }
+    });
+
+    // Mock social quick login
+    document.getElementById('btnFbLogin').addEventListener('click', () => {
+      const email = prompt('Nhập email Facebook của bạn:', 'ruby@example.com');
+      if (email) fillDemo(email, 'password123');
+    });
+
+    document.getElementById('btnLiLogin').addEventListener('click', () => {
+      const email = prompt('Nhập email LinkedIn của bạn:', 'david@example.com');
+      if (email) fillDemo(email, 'password123');
+    });
+  </script>
+</body>
+</html>
