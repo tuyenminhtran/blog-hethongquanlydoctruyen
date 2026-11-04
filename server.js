@@ -46,7 +46,7 @@ const database = {
 // AUTHENTICATION APIs
 // ==========================================
 
-// 1. REGISTER API (Issue #1: Allow register by email or via facebook, linkedin)
+// 1. REGISTER API (Issue #1: Allow user register by email or via facebook, linkedin)
 app.post('/api/auth/register', (req, res) => {
   const { fullName, email, password, provider, providerId } = req.body;
 
@@ -91,6 +91,36 @@ app.post('/api/auth/register', (req, res) => {
     message: `Đăng ký thành công qua ${regProvider.toUpperCase()}!`,
     user: userSafe,
     token: `jwt_token_${newUser.id}_${Date.now()}`
+  });
+});
+
+// 2. LOGIN API (Issue #2: Allow user login with email, username and password)
+app.post('/api/auth/login', (req, res) => {
+  const { identifier, password, rememberMe } = req.body;
+
+  if (!identifier || !password) {
+    return res.status(400).json({ success: false, message: 'Vui lòng cung cấp tài khoản/email và mật khẩu.' });
+  }
+
+  const cleanIdent = identifier.trim().toLowerCase();
+  const user = database.users.find(u => 
+    u.email.toLowerCase() === cleanIdent || 
+    u.username.toLowerCase() === cleanIdent
+  );
+
+  if (!user || user.password !== password) {
+    return res.status(401).json({ success: false, message: 'Tài khoản hoặc mật khẩu không chính xác.' });
+  }
+
+  const { password: _, ...userSafe } = user;
+  const token = `jwt_token_${user.id}_${Date.now()}`;
+
+  return res.status(200).json({
+    success: true,
+    message: `Đăng nhập thành công! Chào mừng ${user.fullName}.`,
+    user: userSafe,
+    token,
+    rememberMe: !!rememberMe
   });
 });
 
