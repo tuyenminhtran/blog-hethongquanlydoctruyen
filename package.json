@@ -1,18 +1,20 @@
 {
   "name": "blog-hethongquanlydoctruyen",
   "version": "1.0.0",
-  "description": "Hệ thống Blog Quản Lý Đọc Truyện Trực Tuyến - Bài thực hành 3 Quản lý dự án với GitHub & Scrum",
+  "description": "Hệ thống Blog Quản Lý Đọc Truyện Trực Tuyến - Bài thực hành 3 & 4 Quản lý dự án với GitHub & Mockaroo",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch server.js",
+    "generate:data": "node scripts/generate_mock_data.js && node scripts/generate_storyreader_data.js"
   },
   "keywords": [
     "blog",
     "story-reader",
     "scrum",
     "github",
-    "sprint-1"
+    "mockaroo",
+    "sample-data"
   ],
   "author": "Nhom 7 - StoryReader Team",
   "license": "MIT",
